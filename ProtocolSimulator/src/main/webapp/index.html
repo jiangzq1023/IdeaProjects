@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>协议网关模拟器</title>
+
+    <!-- CSS -->
+    <link href="/ProtocolSimulator/css/common.css" rel="stylesheet">
+
+    <style>
+        .params-list{
+            float: left;
+            margin-top: 10px;
+        }
+        .label{
+            width: 160px;
+            text-align: right;
+            margin-right: 15px;
+            float: left;
+            font-size: 16px;
+            height: 38px;
+            line-height: 38px;
+        }
+        .input-box{
+            widtH:300px;
+            float: left;
+        }
+        .input-box input[type="text"]{
+            width: 100%;
+            height: 38px;
+            text-indent: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .tab-cont{border:1px solid red}
+        .hide{display: none}
+        .content .right-box .form-box .label{width:160px;text-align: right;margin-right:15px }
+        .content .right-box .form-box .input-box{width:625px}
+        .content .right-box .form-box .input{width:78%;}
+        /*.form-box form{min-width: 780px}*/
+        .msg{height:auto;margin-bottom: 20px}
+        .msg-title{display: block;;font-size: 14px;margin:10px 0}
+
+        /* validate*/
+        .formtips{display: inline-block;float: right}
+        .onError{color: brown}
+    </style>
+</head>
+<body>
+<header class="head" id="top">
+    <div class="params-list">
+        <label class="label">URL:<span>*</span></label>
+        <div class="input-box" style="width:400px"><input class="input" type="text" style="width:60px" name='urlprotocol' id="urlprotocol" placeholder="请输入URL协议" value="http://"><input class="input" style="width:200px" type="text" name='url' id="url" placeholder="请输入URL地址" value="testncop.99wuxian.com"></div>
+    </div>
+    <div class="params-list">
+        <label class="label">KEY:<span>*</span></label>
+        <div class="input-box"><input class="input" type="text" name="key" id="key" placeholder="请输入KEY" value="WLT123456789YKKM"></div>
+    </div>
+</header>
+
+<section class="content">
+    <div class="left-box">
+
+        <ul class="menu-list">
+            <li><a href="#recharge" ><i class="ico ico-article"></i>加油卡充值接口</a></li>
+            <li class="active"><a href="#delivery" ><i class="ico ico-article"></i>加油卡卡密发货接口</a></li>
+            <li><a href="#queryOrder" ><i class="ico ico-article"></i>订单查询接口</a></li>
+        </ul>
+    </div>
+    <div class="right-box" >
+        <div class="right-content publish-page hide">
+            <h2 class="title">客户端请求参数</h2>
+            <div class="form-box">
+                	建设中。。。。
+            </div>
+        </div>
+        <div class="right-content publish-page">
+            <h2 class="title">客户端请求参数</h2>
+            <div class="form-box">
+                <form action="/" method="post" id="form_delivery">
+                    <!-- <h3>注： 带 * 为必填项</h3> -->
+                    <div class="row">
+                        <label class="label">商户ID:<span>*</span></label>
+                        <div class="input-box"><input class="input required"  id="merId" name="merId" type="text"  placeholder="请输入商户ID" value="Z0061"></div>
+                    </div>
+                    <div class="row">
+                        <label class="label">商户密码:<span></span></label>
+                        <div class="input-box"><input class="input required" id="merPwd" name="merPwd" type="text" placeholder="请输入商户密码" value="wlt123456"></div>
+                    </div>
+                    <div class="row">
+                        <label class="label">产品ID:<span>*</span></label>
+                        <div class="input-box"><input class="input required"  id="cardId" name="cardId" type="text"  placeholder="请输入产品ID"></div>
+                    </div>
+                    <div class="row">
+                        <label class="label">订购数量:<span>*</span></label>
+                        <div class="input-box"><input class="input required"  id="num" name="num" type="text" placeholder="请输入订购数量，单次限制(1-10)" value="1"></div>
+                    </div>
+                    <div class="row">
+                        <label class="label">客户端订单流水号:<span>*</span></label>
+                        <div class="input-box"><input class="input required" id="orderId" name="orderId" type="text" placeholder="请输入客户端订单流水号"></div>
+                    </div>
+                    <div class="row">
+                        <label class="label">客户端订单时间:<span>*</span></label>
+                        <div class="input-box"><input class="input required Wdate" onClick="WdatePicker({lang:'zh-cn',dateFmt:'yyyyMMddHHmmss'})"   id="orderTime" name="orderTime"   type="text" placeholder="yyyyMMddHHmmss"></div>
+                    </div>
+                    <div class="row">
+                        <label class="label">持卡人手机号:<span>*</span></label>
+                        <div class="input-box"><input class="input required" id="gasCardTel" name="gasCardTel" type="text" placeholder="请输入持卡人手机号"></div>
+                    </div>
+                    <div class="row">
+                        <label class="label">持卡人姓名:<span></span></label>
+                        <div class="input-box"><input class="input" id="gasCardName" name="gasCardName" type="text" placeholder="请输入持卡人姓名"></div>
+                    </div>
+                    <div class="row">
+                        <label class="label">使用结果:<span></span></label>
+                        <div class="input-box"><input class="radio" type="radio" id="isNotifyResult" name="isNotifyResult" value="1"> 是  <input class="radio" type="radio" name="isNotifyResult" checked="checked" value="0"> 否</div>
+                    </div>
+                    <div class="row address hide">
+                        <label class="label">结果通知地址:<span>*</span></label>
+                        <div class="input-box"><input class="input" type="text" id="notify_url" name="notify_url" placeholder="请输入结果通知地址"></div>
+                    </div>
+
+                    <div class="row">
+                        <label class="label">版本号<span>*</span></label>
+                        <div class="input-box"><input class="input required" id="version" name="version" type="text" placeholder="请输入版本号" value="1.0"></div>
+                    </div>
+                    <div class="row row-btn">
+                        <div class="text-center">
+                            <button type="button" class="save-btn active" id="submit_btn_delivery">提交</button>
+                            <button type="button" class="cancel-btn" id="res">重置</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="msg">
+                    <span class="msg-title">结果内容</span>
+                    <textarea style="width:90%;height:200px" id="textare_delivery"></textarea>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="right-content publish-page hide">
+            <h2 class="title">客户端请求参数</h2>
+            <div class="form-box">
+                <form action="/" method="post" id="form_queryOrder">
+                    <!-- <h3>注： 带 * 为必填项</h3> -->
+                    <div class="row">
+                        <label class="label">商户ID:<span>*</span></label>
+                        <div class="input-box"><input class="input required" type="text"  id="merId" name="merId" placeholder="请输入商户ID" value="Z0061"></div>
+                    </div>
+                    <div class="row">
+                        <label class="label">商户密码:<span></span></label>
+                        <div class="input-box"><input class="input required" type="text" id="merPwd" name="merPwd" placeholder="请输入商户密码" value="wlt123456"></div>
+                    </div>
+                    <div class="row">
+                        <label class="label">服务端订单流水号:<span></span></label>
+                        <div class="input-box"><input class="input" type="text" id="ncOrderId" name="ncOrderId" placeholder="请输入服务端订单流水号"> </div>
+                    </div>
+                    <div class="row">
+                        <label class="label">服务端订单时间:<span></span></label>
+                        <div class="input-box"><input class="input Wdate" onClick="WdatePicker({lang:'zh-cn',dateFmt:'yyyyMMddHHmmss'})"   id="ncOrderTime" name="ncOrderTime"   type="text" placeholder="yyyyMMddHHmmss"></div>
+                    </div>
+                    <div class="row">
+                        <label class="label">客户端订单流水号:<span></span></label>
+                        <div class="input-box"><input class="input" type="text" id="orderId" name="orderId" placeholder="请输入客户端订单流水号"> </div>
+                    </div>
+                    <div class="row">
+                        <label class="label">客户端订单时间:<span></span></label>
+                        <div class="input-box"><input class="input Wdate" onClick="WdatePicker({lang:'zh-cn',dateFmt:'yyyyMMddHHmmss'})" id="orderTime" name="orderTime" type="text" placeholder="yyyyMMddHHmmss"></div>
+                    </div>
+                    <div class="row">
+                        <label class="label">版本号<span>*</span></label>
+                        <div class="input-box"><input class="input required" type="text"  id="version"  name="version" placeholder="请输入版本号" value="1.0"></div>
+                    </div>
+                    <div class="row row-btn">
+                        <div class="text-center">
+                            <button type="button" class="save-btn active" id="submit_btn_QueryOrder">提交</button>
+                            <button type="button" class="cancel-btn" id="res" >重置</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="msg">
+                    <span class="msg-title">结果内容</span>
+                    <textarea style="width:90%;height:200px" id="textare_QueryOrder"></textarea>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+</section>
+
+
+<section class="wrap page-top-box">
+    <div class="page-top">
+        <a href="#top"><i class="ico ico-top"></i></a>
+    </div>
+</section>
+<!-- 页尾内容 -->
+
+    <!--[if lt IE 9]>
+    <script src="/ProtocolSimulator/js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <script src="/ProtocolSimulator/js/jquery-1.8.3.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/ProtocolSimulator/js/My97DatePicker/WdatePicker.js"></script>
+    <script src="/ProtocolSimulator/js/99add.js"></script>
+    <script src="/ProtocolSimulator/js/99validate.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            var $tab_li = $('.left-box ul li');
+            $tab_li.click(function(){
+                $(this).addClass('active').siblings().removeClass('active');
+                var index = $tab_li.index(this);
+                $('div.right-box > div').eq(index).show().siblings().hide();
+            });
+        });
+    </script>
+
+
+</body>
+</html>
