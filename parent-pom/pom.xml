@@ -29,8 +29,8 @@
         </snapshotRepository>
     </distributionManagement>
 
-    <!-- version base line definition -->
     <properties>
+        <!-- version plugin base line definition -->
         <java.version>1.8</java.version>
         <maven.encoding.version>UTF-8</maven.encoding.version>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
@@ -45,20 +45,23 @@
         <maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
         <maven-war-plugin.version>2.6</maven-war-plugin.version>
         <maven-assembly-plugin.version>2.5.5</maven-assembly-plugin.version>
+        <jetty-maven-plugin.version>9.3.6.v20151106</jetty-maven-plugin.version>
 
+        <!-- version base line definition -->
         <junit.version>4.12</junit.version>
         <testng.version>6.9.9</testng.version>
         <springframework.version>4.2.3.RELEASE</springframework.version>
+        <security.version>4.0.2.RELEASE</security.version>
         <mybatis.version>3.3.0</mybatis.version>
         <mybatis-spring.version>1.2.3</mybatis-spring.version>
         <shiro.version>1.2.4</shiro.version>
         <commons-lang3.version>3.4</commons-lang3.version>
         <commons-fileupload.version>1.3.1</commons-fileupload.version>
         <commons-logging.version>1.2</commons-logging.version>
-        <commons.collections.version>4.0</commons.collections.version>
+        <commons.collections4.version>4.0</commons.collections4.version>
         <commons-codec.version>1.10</commons-codec.version>
         <commons-beanutils.version>1.9.2</commons-beanutils.version>
-        <cglib-nodep.version>3.2</cglib-nodep.version>
+        <cglib-nodep.version>3.2.0</cglib-nodep.version>
         <gson.version>2.3.1</gson.version>
         <bson.version>3.0.3</bson.version>
         <slf4j.version>1.7.13</slf4j.version>
@@ -66,15 +69,12 @@
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <druid.version>1.0.16</druid.version>
         <mysql-connector-java.version>5.1.37</mysql-connector-java.version>
-        <mariadb-java-client.version>1.2.2</mariadb-java-client.version>
+        <mariadb-java-client.version>1.3.2</mariadb-java-client.version>
         <jackson.version>2.6.3</jackson.version>
         <velocity.version>1.7</velocity.version>
         <httpclient.version>4.5.1</httpclient.version>
         <httpcore.version>4.4.4</httpcore.version>
-
         <disruptor.version>3.3.2</disruptor.version>
-
-
     </properties>
 
     <!-- dependency management -->
@@ -228,7 +228,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
-                <version>${commons.collections.version}</version>
+                <version>${commons.collections4.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-fileupload</groupId>
@@ -375,6 +375,7 @@
         <!-- maven-jar-plugin                 -->
         <!-- maven-war-plugin                 -->
         <!-- svn-revision-number-maven-plugin -->
+        <!-- jetty-maven-plugin               -->
         <!-- ================================ -->
         <!-- plugin                           -->
         <!-- ================================ -->
@@ -387,6 +388,7 @@
                 <!-- Java resources plugin -->
                 <!-- =================== -->
                 <plugin>
+                    <inherited>true</inherited>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>${maven-resources-plugin.version}</version>
                     <configuration>
@@ -397,6 +399,7 @@
                 <!-- Java compile plugin -->
                 <!-- =================== -->
                 <plugin>
+                    <inherited>true</inherited>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
                     <configuration>
@@ -408,11 +411,13 @@
                 </plugin>
 
                 <plugin>
+                    <inherited>true</inherited>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>${maven-assembly-plugin.version}</version>
                 </plugin>
 
                 <plugin>
+                    <inherited>true</inherited>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                     <configuration>
@@ -432,6 +437,7 @@
                 <!-- Java Source plugin -->
                 <!-- ================== -->
                 <plugin>
+                    <inherited>true</inherited>
                     <artifactId>maven-source-plugin</artifactId>
                     <version>${maven-source-plugin.version}</version>
                     <configuration>
@@ -451,6 +457,7 @@
                 <!-- Javadoc plugin -->
                 <!-- ============== -->
                 <plugin>
+                    <inherited>true</inherited>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${maven-javadoc-plugin.version}</version>
                     <configuration>
@@ -471,6 +478,7 @@
                 <!-- jar plugin     -->
                 <!-- ============== -->
                 <plugin>
+                    <inherited>true</inherited>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>${maven-jar-plugin.version}</version>
                     <configuration>
@@ -491,6 +499,7 @@
                 <!-- war plugin     -->
                 <!-- ============== -->
                 <plugin>
+                    <inherited>true</inherited>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>${maven-war-plugin.version}</version>
                     <configuration>
@@ -512,6 +521,7 @@
                 <!-- Java clean plugin -->
                 <!-- =================== -->
                 <plugin>
+                    <inherited>true</inherited>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>${maven-clean-plugin.version}</version>
                 </plugin>
@@ -520,6 +530,7 @@
                 <!-- Java install plugin -->
                 <!-- =================== -->
                 <plugin>
+                    <inherited>true</inherited>
                     <artifactId>maven-install-plugin</artifactId>
                     <version>${maven-install-plugin.version}</version>
                 </plugin>
@@ -528,8 +539,19 @@
                 <!-- Java deploy plugin -->
                 <!-- =================== -->
                 <plugin>
+                    <inherited>true</inherited>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>${maven-deploy-plugin.version}</version>
+                </plugin>
+
+                <!-- =================== -->
+                <!-- Jetty maven plugin -->
+                <!-- =================== -->
+                <plugin>
+                    <inherited>true</inherited>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>9.3.6.v20151106</version>
                 </plugin>
             </plugins>
         </pluginManagement>

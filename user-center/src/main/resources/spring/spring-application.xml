@@ -1,29 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="
-  	 http://www.springframework.org/schema/beans
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
      http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
-     http://www.springframework.org/schema/util
-     http://www.springframework.org/schema/util/spring-util-4.2.xsd
+
+
      http://www.springframework.org/schema/tx
      http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
-     http://www.springframework.org/schema/aop
-     http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+
+
      http://www.springframework.org/schema/context
      http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
-	<!--配置文件导入 -->
-	<!-- <bean id="propertyConfigurer"
-        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>WEB-INF/classes/config.properties</value>
-            </list>
-        </property>
-    </bean> -->
     <!-- 加载配置属性文件 -->
 	<context:property-placeholder location="classpath:config.properties" />
 	<!-- <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
@@ -48,7 +38,7 @@
 		<property name="jndiName"> <value>java:/handpay</value> </property> </bean> -->
 
 	<!-- bean扫描加载 -->
-	<context:component-scan base-package="org.govern.ccms" />
+	<context:component-scan base-package="org.team777.user.center" />
 	
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close">
@@ -72,7 +62,7 @@
 		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
 		<property name="minEvictableIdleTimeMillis" value="300000" />
 
-		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="validationQuery" value="SELECT 1" />
 		<property name="testWhileIdle" value="true" />
 		<property name="testOnBorrow" value="false" />
 		<property name="testOnReturn" value="false" />
@@ -109,7 +99,4 @@
 	<!-- 全注解方式 需加上@Transactional -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
-	<!-- <aop:config expose-proxy="true" proxy-target-class="true" /> -->
-	<!-- <aop:aspectj-autoproxy proxy-target-class="true"/> -->
-	<!-- <aop:aspectj-autoproxy/> -->
 </beans>

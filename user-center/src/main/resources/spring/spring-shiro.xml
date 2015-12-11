@@ -1,63 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="
-  	 http://www.springframework.org/schema/beans
-     http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
-     http://www.springframework.org/schema/util 
-     http://www.springframework.org/schema/util/spring-util-4.2.xsd
-     http://www.springframework.org/schema/tx  
-     http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
-     http://www.springframework.org/schema/aop 
-     http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
-     http://www.springframework.org/schema/context 
-     http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="https://www.cas.com/login?service=http://www.example.com/shiro-cas" />
+		<property name="loginUrl" value="http://10.48.194.223:8088/cas/login?service=http://10.48.194.131:8081/user-center/shiro-cas" />
 		<property name="successUrl" value="/index.html" />
 		<property name="unauthorizedUrl" value="/error.html" />
 		<property name="filters">
 			<map>
-				<entry key="authc" value-ref="shiro"></entry>
-				<entry key="cas" value-ref="casFilter"></entry>
+				<!--<entry key="authc" value-ref="shiro"></entry>-->
+				<entry key="cas" value-ref="casFilter"/>
+                <entry key="logout" value-ref="logout" />
 			</map>
 		</property>
 		<property name="filterChainDefinitions">
 			<value>
 				/login.html=anon
-				/error.html=anon
+				/error.jsp=anon
 				/druid/*=anon
 				/shiro-cas = cas
 				/logout = logout
-				/**=authc
+				/**=user
 			</value>
 		</property>
 	</bean>
-	
-	<!-- <bean id="ldapRealm" class="org.apache.shiro.realm.ldap.JndiLdapRealm">
-		配置登录认证访问ldap的树域
-        <property name="userDnTemplate" value="uid={0},ou=User1,dc=99wuxian,dc=com"/>
-        <property name="contextFactory" ref="contextFactory" />
-    </bean> 
-	配置ldap路径及配置一个默认的用户和密码
-     <bean id="contextFactory" class="org.apache.shiro.realm.ldap.JndiLdapContextFactory">
-        <property name="url" value="ldap://180.153.177.112:33389"/>
-        <property name="systemUsername" value="administrator"/>
-        <property name="systemPassword" value="handpay76!"/>
-	</bean>
-	<bean id="jdbcRealm" class="org.apache.shiro.realm.jdbc.JdbcRealm">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="permissionsLookupEnabled" value="true"/>
-        <property name="authenticationQuery" value="select password from rms_user where login_name = ?" />
-        <property name="userRolesQuery" value="select r.role_code from rms_role r,rms_user u,rms_user_role ur where r.id = ur.role_id and u.id = ur.user_id and u.login_name = ?"/>
-        <property name="permissionsQuery" value="select distinct p.priv_code from rms_privilege p,rms_role r,rms_role_privilege rp where p.id = rp.priv_id and r.id = rp.role_id and r.role_code = ?"/>
-    </bean> -->
-	
-	
+
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<!-- 需要使用cache的话加上这句 -->
 		<property name="cacheManager" ref="shiroCacheManager" />
@@ -69,15 +39,19 @@
         <!-- 配置验证错误时的失败页面  -->  
         <property name="failureUrl" value="/error.jsp"/>  
     </bean>
-    
+
+    <bean id="logout" class="org.apache.shiro.web.filter.authc.LogoutFilter">
+        <property name="redirectUrl" value="http://10.48.194.223:8088/cas/logout?service=http://10.48.194.131:8081/user-center/cas-login"/>
+    </bean>
+
     <!-- 如果要实现cas的remember me的功能，需要用到下面这个bean，并设置到securityManager的subjectFactory中 -->  
     <bean id="casSubjectFactory" class="org.apache.shiro.cas.CasSubjectFactory"/> 
 	
 	<!-- 定制自己的casRealm -->
-	<bean id="casRealm" class="org.apache.shiro.cas.CasRealm">
+	<bean id="casRealm" class="org.team777.user.center.framwork.TeamCasRealm">
         <property name="defaultRoles" value="ROLE_USER"/>
-        <property name="casServerUrlPrefix" value="https://server.cas.com/"/>
-        <property name="casService" value="http://application.examples.com/shiro-cas" />
+        <property name="casServerUrlPrefix" value="http://10.48.194.223:8088/cas"/>
+        <property name="casService" value="http://10.48.194.131:8081/user-center/shiro-cas" />
     </bean>
 	
 	<!-- 用户授权/认证信息Cache, 采用EhCachrmi集群 -->
