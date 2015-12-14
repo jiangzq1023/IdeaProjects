@@ -16,26 +16,6 @@
 
     <!-- 加载配置属性文件 -->
 	<context:property-placeholder location="classpath:config.properties" />
-	<!-- <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
- 		<property name="locations">
-	    <list>
-	      <value>classpath*:config.properties</value>
-	    </list>
-		</property>
-  		<property name="ignoreUnresolvablePlaceholders" value="true"/>
-	</bean> -->
-
-	<!-- 定义上下文返回的消息的国际化。 -->
-	<!-- <bean id="messageSource"
-		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basename" value="classpath:messages_zh_CN" />
-	</bean>
-	<bean id="localeResolver"
-		class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver" /> -->
-
-	<!-- 配置DataSource数据源 -->
-	<!-- <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> 
-		<property name="jndiName"> <value>java:/handpay</value> </property> </bean> -->
 
 	<!-- bean扫描加载 -->
 	<context:component-scan base-package="org.team777.user.center" />

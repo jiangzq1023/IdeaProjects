@@ -151,7 +151,7 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <configuration>
                     <httpConnector>
-                        <encoding>UTF-8</encoding>
+                      <!--  <encoding>UTF-8</encoding>-->
                         <port>8081</port>
                     </httpConnector>
                     <stopKey>shutdown</stopKey>

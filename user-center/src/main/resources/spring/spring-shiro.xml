@@ -6,7 +6,7 @@
 
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="http://10.48.194.223:8088/cas/login?service=http://10.48.194.131:8081/user-center/shiro-cas" />
+		<property name="loginUrl" value="http://10.48.194.223:8088/cas/login?service=http://localhost:8081/user-center/shiro-cas" />
 		<property name="successUrl" value="/index.html" />
 		<property name="unauthorizedUrl" value="/error.html" />
 		<property name="filters">
@@ -41,7 +41,7 @@
     </bean>
 
     <bean id="logout" class="org.apache.shiro.web.filter.authc.LogoutFilter">
-        <property name="redirectUrl" value="http://10.48.194.223:8088/cas/logout?service=http://10.48.194.131:8081/user-center/cas-login"/>
+        <property name="redirectUrl" value="http://10.48.194.223:8088/cas/logout?service=http://localhost:8081/user-center/cas-login"/>
     </bean>
 
     <!-- 如果要实现cas的remember me的功能，需要用到下面这个bean，并设置到securityManager的subjectFactory中 -->  
@@ -49,9 +49,8 @@
 	
 	<!-- 定制自己的casRealm -->
 	<bean id="casRealm" class="org.team777.user.center.framwork.TeamCasRealm">
-        <property name="defaultRoles" value="ROLE_USER"/>
         <property name="casServerUrlPrefix" value="http://10.48.194.223:8088/cas"/>
-        <property name="casService" value="http://10.48.194.131:8081/user-center/shiro-cas" />
+        <property name="casService" value="http://localhost:8081/user-center/shiro-cas" />
     </bean>
 	
 	<!-- 用户授权/认证信息Cache, 采用EhCachrmi集群 -->
